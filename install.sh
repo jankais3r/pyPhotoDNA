@@ -23,5 +23,5 @@ if [ "$(uname)" == "Darwin" ]; then
   echo
   echo "To generate a PhotoDNA hash, run generateHashes.py."
 else
-  echo "jPhotoDNA does not support Linux. Please run install.sh on a Mac."
+  echo "pyPhotoDNA does not support Linux. Please run install.sh on a Mac."
 fi
