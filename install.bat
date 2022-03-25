@@ -10,7 +10,7 @@ bitsadmin /transfer "Downloading FTK" /priority HIGH http://ad-iso.s3.amazonaws.
 
 echo.
 echo Extracting PhotoDNAx64.dll.
-powershell.exe -Command "&{$mountResult = Mount-DiskImage %cd%\\AD_FTK_6.3.0.iso; $driveLetter = ($mountResult | Get-Volume).DriveLetter; $setupPath = \"$($driveLetter):\FTK\FTK\x64\{8A89F096-3685-47E2-AFAE-48F7E3FC5A05}\Data1.cab\"; echo "'Setup file is' $setupPath"; $finalString = expand $setupPath /f:photodnax64.1.72.dll %cd%; Get-Volume $driveLetter | Get-DiskImage |Dismount-DiskImage }" > nul
+powershell.exe -Command "&{$mountResult = Mount-DiskImage %cd%\\AD_FTK_6.3.0.iso; $driveLetter = ($mountResult | Get-Volume).DriveLetter; $setupPath = \"$($driveLetter):\FTK\FTK\x64\{8A89F096-3685-47E2-AFAE-48F7E3FC5A05}\Data1.cab\"; echo "'Setup file is' $setupPath"; $finalString = expand $setupPath /f:photodnax64.1.72.dll %cd%; Get-Volume $driveLetter | Get-DiskImage | Dismount-DiskImage }" > nul
 del AD_FTK_6.3.0.iso
 rename photodnax64.1.72.dll PhotoDNAx64.dll
 
