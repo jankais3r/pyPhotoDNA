@@ -6,15 +6,15 @@ if [ "$(uname)" == "Darwin" ]; then
   echo "The script will now setup a pyPhotoDNA environment for you. Please be patient."
   
   echo
-  echo "Downloading BlackLight (1.8GB, might take a while)..."
-  curl -LO https://s3-us-west-2.amazonaws.com/bbt-software-releases/0100_BlackLight/BlackLight_Mac_Setup_2020r1.pkg
+  echo "Downloading Inspector (4.4 GB, might take a while)..."
+  curl -LO https://archive.org/download/cellebrite-inspector-10.3-mac/Cellebrite_Inspector_10.3_Mac.pkg
   
   echo
   echo "Extracting PhotoDNAx64.so."
-  pkgutil --expand-full BlackLight_Mac_Setup_2020r1.pkg BL
-  rm BlackLight_Mac_Setup_2020r1.pkg
-  mv BL/BlackLight.pkg/Payload/Applications/BlackLight/BlackLight\ 2020\ Release\ 1/BlackLight.app/Contents/Resources/Mac/artifact_parser/PhotoDNAx64-osx.so.1.72 PhotoDNAx64.so
-  rm -rf BL
+  pkgutil --expand-full Cellebrite_Inspector_10.3_Mac.pkg Inspector
+  rm Cellebrite_Inspector_10.3_Mac.pkg
+  mv "Inspector/Inspector.pkg/Payload/Applications/Inspector/Inspector 10.3/Inspector.app/Contents/Helpers/Mac/PhotoDNAx64-osx.so.1.72" PhotoDNAx64.so
+  rm -rf Inspector
   
   echo
   echo
