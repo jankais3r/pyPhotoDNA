@@ -31,26 +31,36 @@ else
 		echo "Dependency missing. Please install 'wine64' and re-run the installer."
 		exit 1
 	fi
-	if ! [ -x "$(command -v cabextract)" ]; then
-		echo "Dependency missing. Please install 'cabextract' and re-run the installer."
+	if ! [ -x "$(command -v unzip)" ]; then
+		echo "Dependency missing. Please install 'unzip' and re-run the installer."
 		exit 1
 	fi
-	if ! [ -x "$(command -v isoinfo)" ]; then
-		echo "Dependency missing. Please install 'genisoimage' and re-run the installer."
-		exit 1
-	fi
-
-	echo "Downloading FTK (3.4GB, might take a while)..."
-	curl -LO http://ad-iso.s3.amazonaws.com/AD_FTK_6.3.0.iso
+	
+	echo "Downloading AXIOM (4GB, might take a while)..."
+	curl -Lo axiom.zip https://magnetforensics.com/dl/axiom
+	
+	echo
+	echo "Extracting AXIOM Installer..."
+	unzip axiom.zip
+	rm axiom.zip
+	
+	echo
+	echo "Downloading InnoExtract..."
+	curl -Lo innoextract.tar.xz https://constexpr.org/innoextract/files/innoextract-1.9-linux.tar.xz
+	
+	echo
+	echo "Extracting InnoExtract..."
+	tar -xf innoextract.tar.xz
+	rm innoextract.tar.xz
 	
 	echo
 	echo "Extracting PhotoDNAx64.dll."
-	isoinfo -i AD_FTK_6.3.0.iso -x /FTK/FTK/X64/_8A89F09/DATA1.CAB > Data1.cab
-	rm AD_FTK_6.3.0.iso
-	cabextract -d tmp -q Data1.cab
-	rm Data1.cab
-	mv tmp/photodnax64.1.72.dll PhotoDNAx64.dll
-	rm -rf tmp
+	find . -maxdepth 1 -name "AXIOM*setup.exe" | xargs innoextract-1.9-linux/bin/amd64/innoextract -I "app/AXIOM Process/x64/PhotoDNAx64.dll" -s -e
+	mv "app/AXIOM Process/x64/PhotoDNAx64.dll" PhotoDNAx64.dll
+	rm -rf app
+	rm -rf innoextract-1.9-linux
+	rm AXIOM*setup.exe
+	rm AXIOM*setup*.bin
 	
 	echo
 	echo "Downloading minimal Python for Wine..."
